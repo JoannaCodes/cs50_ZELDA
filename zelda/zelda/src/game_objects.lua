@@ -35,7 +35,15 @@ GAME_OBJECT_DEFS = {
         defaultState = 'idle',
         states = { 
             ['idle'] = {
-                frame = 14}}
+                frame = 14
+            },
+            ['lifted'] = {
+                frame = 14
+            },
+            ['thrown'] = {
+                frame = 14
+            }
+        }
     },
 
     -- dropped heart is treated as object in the room

@@ -173,7 +173,7 @@ function Room:update(dt)
             entity.dead = true
 
             if entity.dropHeart then
-                local heart = GameObject(GAME_OBJECT_DEFS['heart'], entity.x, entity.y)
+                local heart = GameObject(GAME_OBJECT_DEFS['heart'], math.floor(entity.x), math.floor(entity.y))
 
                 heart.onConsume = function ()
                     -- self.player:gain(1) FIXIT!

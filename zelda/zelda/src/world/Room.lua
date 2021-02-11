@@ -105,17 +105,21 @@ function Room:generateObjects()
     -- add to list of objects in scene (only one switch for now)
     table.insert(self.objects, switch)
 
-    --generate pots
-    local pot = GameObject(GAME_OBJECT_DEFS['pot'],  -- def
-        math.random(MAP_RENDER_OFFSET_X + TILE_SIZE, VIRTUAL_WIDTH - TILE_SIZE * 2 - 16), -- x
-        math.random(MAP_RENDER_OFFSET_Y + TILE_SIZE, VIRTUAL_HEIGHT - (VIRTUAL_HEIGHT - MAP_HEIGHT * TILE_SIZE) -- y
-        + MAP_RENDER_OFFSET_Y - TILE_SIZE - 16))
-    
-    pot.onCollide = function ()
-        -- FIX IT!
+    local pots = math.random(2,5)
+    for i = 1, pots do
+        --generate pots
+        local pot = GameObject(GAME_OBJECT_DEFS['pot'],  -- def
+            math.random(MAP_RENDER_OFFSET_X + TILE_SIZE, VIRTUAL_WIDTH - TILE_SIZE * 2 - 16), -- x
+            math.random(MAP_RENDER_OFFSET_Y + TILE_SIZE, VIRTUAL_HEIGHT - (VIRTUAL_HEIGHT - MAP_HEIGHT * TILE_SIZE) -- y
+            + MAP_RENDER_OFFSET_Y - TILE_SIZE - 16))
+        
+        pot.onCollide = function ()
+            -- FIX IT!
+            
+        end
+        -- add pots to the scene
+        table.insert(self.objects, pot)
     end
-    -- add pots to the scene
-    table.insert(self.objects, pot)
 end
 
 --[[
@@ -176,10 +180,13 @@ function Room:update(dt)
                 local heart = GameObject(GAME_OBJECT_DEFS['heart'], math.floor(entity.x), math.floor(entity.y))
 
                 heart.onConsume = function ()
-                    -- self.player:gain(1) FIXIT!
+                    self.player.health = math.min(6, self.player.health + 1)
 
                     -- prevents from from rendering the heart after consume
                     entity.dropHeart = false
+
+                    -- FIXED BUG: after consuming the heart, HP wont decrease anymore.
+                    -- BUG!: After consuming Playr HP get full instead of giving only 2 heart points.
                 end
                 
                 table.insert(self.objects, heart)

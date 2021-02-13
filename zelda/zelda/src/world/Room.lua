@@ -109,13 +109,23 @@ function Room:generateObjects()
     for i = 1, pots do
         --generate pots
         local pot = GameObject(GAME_OBJECT_DEFS['pot'],  -- def
-            math.random(MAP_RENDER_OFFSET_X + TILE_SIZE, VIRTUAL_WIDTH - TILE_SIZE * 2 - 16), -- x
+            math.random(MAP_RENDER_OFFSET_X + TILE_SIZE, VIRTUAL_WIDTH - TILE_SIZE * 3 - 15), -- x
             math.random(MAP_RENDER_OFFSET_Y + TILE_SIZE, VIRTUAL_HEIGHT - (VIRTUAL_HEIGHT - MAP_HEIGHT * TILE_SIZE) -- y
-            + MAP_RENDER_OFFSET_Y - TILE_SIZE - 16))
+            + MAP_RENDER_OFFSET_Y - TILE_SIZE - 15))
         
         pot.onCollide = function ()
-            -- FIX IT!
-            
+            if self.player:collides(pot) then
+                local direction = self.player.direction
+                if direction == 'left' then
+                    self.player.x = pot.x + (pot.width + 1)
+                elseif direction == 'right' then
+                    self.player.x = self.player.x - (pot.width - 15)
+                elseif direction == 'up' then
+                    self.player.y = pot.y + pot.height
+                elseif direction == 'down' then
+                    self.player.y = self.player.y - (pot.height - 15)
+                end
+            end
         end
         -- add pots to the scene
         table.insert(self.objects, pot)
@@ -181,12 +191,8 @@ function Room:update(dt)
 
                 heart.onConsume = function ()
                     self.player.health = math.min(6, self.player.health + 1)
-
                     -- prevents from from rendering the heart after consume
                     entity.dropHeart = false
-
-                    -- FIXED BUG: after consuming the heart, HP wont decrease anymore.
-                    -- BUG!: After consuming Playr HP get full instead of giving only 2 heart points.
                 end
                 
                 table.insert(self.objects, heart)
@@ -215,11 +221,20 @@ function Room:update(dt)
         -- trigger collision and consume callback on object
         if self.player:collides(object) then
             object:onCollide()
-            if object.solid then
-                self.player.dy = 0
-            elseif object.consumable then
+
+            if object.consumable then
                 object.onConsume(self.player)
                 table.remove(self.objects, k)
+            end
+        end
+
+        for i = #self.entities, 1, -1 do
+            local entity = self.entities[i]
+            if not entity.dead and entity:collides(object) and object.solid then
+                local direction = self.player.direction
+                if direction == 'left' then
+                    entity.x = entity.width + object.x
+                end
             end
         end
     end

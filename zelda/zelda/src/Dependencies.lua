@@ -30,6 +30,8 @@ require 'src/states/entity/EntityWalkState'
 require 'src/states/entity/player/PlayerIdleState'
 require 'src/states/entity/player/PlayerSwingSwordState'
 require 'src/states/entity/player/PlayerWalkState'
+require 'src/states/entity/player/PlayerPotLiftState'
+require 'src/states/entity/player/PlayerWalkPotLiftState'
 
 require 'src/states/game/GameOverState'
 require 'src/states/game/PlayState'
@@ -57,6 +59,8 @@ gFrames = {
     ['hearts'] = GenerateQuads(gTextures['hearts'], 16, 16),
     ['switches'] = GenerateQuads(gTextures['switches'], 16, 18),
     ['pots'] = GenerateQuads(gTextures['pots'], 16, 16),
+    ['character-lift-pot'] = GenerateQuads(gTextures['character-lift-pot'], 16, 32),
+    ['character-walk-pot'] = GenerateQuads(gTextures['character-walk-pot'], 16, 32),
     ['bonus-hearts'] =  GenerateQuads(gTextures['bonus-hearts'], 16, 16)
 }
 

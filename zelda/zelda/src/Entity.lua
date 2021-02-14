@@ -41,6 +41,9 @@ function Entity:init(def)
 
     -- entity randomly drop heart
     self.dropHeart = math.random(0,1) == 1 and true or false
+
+    -- checks if pot is liftes
+    self.potLift = false
 end
 
 function Entity:createAnimations(animations)

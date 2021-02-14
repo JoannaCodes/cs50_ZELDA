@@ -214,7 +214,7 @@ function Room:update(dt)
                 table.remove(self.objects, k)
             end
 
-            -- pot Coliision
+            -- pot coliision
             if object.solid then
                 local direction = self.player.direction
                 if direction == 'left' then

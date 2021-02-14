@@ -72,50 +72,42 @@ ENTITY_DEFS = {
             },
             ['lift-pot-left'] = {
                 frames = {10, 11, 12},
-                interval = 0.05,
-                looping = false,
+                interval = 0.15,
                 texture = 'character-lift-pot'
             },
             ['lift-pot-right'] = {
                 frames = {4, 5, 6},
-                interval = 0.05,
-                looping = false, 
+                interval = 0.15,
                 texture = 'character-lift-pot'
             },
             ['lift-pot-down'] = {
                 frames = {1, 2, 3},
-                interval = 0.05,
-                looping = false,
+                interval = 0.15,
                 texture = 'character-lift-pot'
             },
             ['lift-pot-up'] = {
                 frames = {7, 8, 9},
-                interval = 0.05,
-                looping = false,
+                interval = 0.15,
                 texture = 'character-lift-pot'
             },
-            ['walk-left-lift-pot'] = {
+            ['walk-pot-left'] = {
                 frames = {13, 14, 15, 16},
                 interval = 0.15,
-                looping = false,
                 texture = 'character-walk-pot'
             },
-            ['walk-right-lift-pot'] = {
+            ['walk-pot-right'] = {
                 frames = {5, 6, 7, 8},
                 interval = 0.15,
-                looping = false,
                 texture = 'character-walk-pot'
             },
-            ['walk-down-lift-pot'] = {
-                frames = {1, 2, 3, 4},
-                interval = 0.15,
-                looping = false,
-                texture = 'character-walk-pot'
-            },
-            ['walk-up-lift-pot'] = {
+            ['walk-pot-up'] = {
                 frames = {9, 10, 11, 12},
                 interval = 0.15,
-                looping = false,
+                texture = 'character-walk-pot'
+            },
+            ['walk-pot-down'] = {
+                frames = {1, 2, 3, 4},
+                interval = 0.15,
                 texture = 'character-walk-pot'
             }
         }

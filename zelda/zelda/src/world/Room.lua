@@ -112,21 +112,7 @@ function Room:generateObjects()
             math.random(MAP_RENDER_OFFSET_X + TILE_SIZE, VIRTUAL_WIDTH - TILE_SIZE * 3 - 15), -- x
             math.random(MAP_RENDER_OFFSET_Y + TILE_SIZE, VIRTUAL_HEIGHT - (VIRTUAL_HEIGHT - MAP_HEIGHT * TILE_SIZE) -- y
             + MAP_RENDER_OFFSET_Y - TILE_SIZE - 15))
-        
-        pot.onCollide = function ()
-            if self.player:collides(pot) then
-                local direction = self.player.direction
-                if direction == 'left' then
-                    self.player.x = pot.x + (pot.width + 1)
-                elseif direction == 'right' then
-                    self.player.x = self.player.x - (pot.width - 15)
-                elseif direction == 'up' then
-                    self.player.y = pot.y + pot.height
-                elseif direction == 'down' then
-                    self.player.y = self.player.y - (pot.height - 15)
-                end
-            end
-        end
+
         -- add pots to the scene
         table.insert(self.objects, pot)
     end
@@ -183,14 +169,14 @@ function Room:update(dt)
         local entity = self.entities[i]
 
         -- remove entity from the table if health is <= 0
-        if entity.health <= 0 then
+        if entity.health <= 0 and not entity.dead then
             entity.dead = true
 
             if entity.dropHeart then
                 local heart = GameObject(GAME_OBJECT_DEFS['heart'], math.floor(entity.x), math.floor(entity.y))
 
                 heart.onConsume = function ()
-                    self.player.health = math.min(6, self.player.health + 1)
+                    self.player:gain(2)
                     -- prevents from from rendering the heart after consume
                     entity.dropHeart = false
                 end
@@ -222,18 +208,23 @@ function Room:update(dt)
         if self.player:collides(object) then
             object:onCollide()
 
+            -- heart consume
             if object.consumable then
                 object.onConsume(self.player)
                 table.remove(self.objects, k)
             end
-        end
 
-        for i = #self.entities, 1, -1 do
-            local entity = self.entities[i]
-            if not entity.dead and entity:collides(object) and object.solid then
+            -- pot Coliision
+            if object.solid then
                 local direction = self.player.direction
                 if direction == 'left' then
-                    entity.x = entity.width + object.x
+                    self.player.x = self.player.x + self.player.walkSpeed * dt
+                elseif direction == 'right' then
+                    self.player.x = self.player.x - self.player.walkSpeed * dt
+                elseif direction == 'up' then
+                    self.player.y = self.player.y + self.player.walkSpeed * dt
+                elseif direction == 'down' then
+                    self.player.y = self.player.y - self.player.walkSpeed * dt
                 end
             end
         end

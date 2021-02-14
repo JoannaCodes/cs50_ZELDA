@@ -69,6 +69,15 @@ function PlayerSwingSwordState:update(dt)
         end
     end
 
+    -- checks if hitbox collides with pots in the scene
+    --[[for k, object in pairs(self.dungeon.currentRoom.objects) do
+        if object:collides(self.swordHitbox) then
+            if object.state == 'idle' then
+                object.state = 'broken'
+            end
+        end
+    end]]
+
     -- if we've fully elapsed through one cycle of animation, change back to idle state
     if self.player.currentAnimation.timesPlayed > 0 then
         self.player.currentAnimation.timesPlayed = 0

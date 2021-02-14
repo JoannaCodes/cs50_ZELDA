@@ -42,6 +42,9 @@ GAME_OBJECT_DEFS = {
             },
             ['thrown'] = {
                 frame = 14
+            },
+            ['broken'] = {
+                frame = 52
             }
         }
     },

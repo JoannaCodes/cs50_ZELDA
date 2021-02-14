@@ -70,7 +70,7 @@ function Entity:damage(dmg)
 end
 
 function Entity:gain(HP)
-    self.health = self.health + HP
+    self.health = math.min(self.health + HP, 6)
 end
 
 function Entity:goInvulnerable(duration)

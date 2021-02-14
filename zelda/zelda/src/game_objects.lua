@@ -49,7 +49,7 @@ GAME_OBJECT_DEFS = {
     -- dropped heart is treated as object in the room
     ['heart'] = {
         type = 'heart',
-        texture = 'health-powerUp',
+        texture = 'bonus-hearts',
         frame = 1,
         width = 16,
         height = 16,

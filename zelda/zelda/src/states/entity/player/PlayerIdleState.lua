@@ -27,5 +27,6 @@ function PlayerIdleState:update(dt)
 
     if love.keyboard.wasPressed('l') then
         self.entity:changeState('pot-lift')
+        self.entity.potLift = true
     end
 end

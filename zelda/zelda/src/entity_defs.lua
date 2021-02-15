@@ -90,6 +90,22 @@ ENTITY_DEFS = {
                 interval = 0.15,
                 texture = 'character-lift-pot'
             },
+            ['idle-pot-lift-left'] = {
+                frames = {13},
+                texture = 'character-walk-pot'
+            },
+            ['idle-pot-lift-right'] = {
+                frames = {5},
+                texture = 'character-walk-pot'
+            },
+            ['idle-pot-lift-up'] = {
+                frames = {9},
+                texture = 'character-walk-pot'
+            },
+            ['idle-pot-lift-down'] = {
+                frames = {1},
+                texture = 'character-walk-pot'
+            },
             ['walk-pot-left'] = {
                 frames = {13, 14, 15, 16},
                 interval = 0.15,

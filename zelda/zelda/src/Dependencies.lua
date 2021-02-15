@@ -30,8 +30,10 @@ require 'src/states/entity/EntityWalkState'
 require 'src/states/entity/player/PlayerIdleState'
 require 'src/states/entity/player/PlayerSwingSwordState'
 require 'src/states/entity/player/PlayerWalkState'
+
 require 'src/states/entity/player/PlayerPotLiftState'
-require 'src/states/entity/player/PlayerWalkPotLiftState'
+require 'src/states/entity/player/PlayerPotIdleState'
+require 'src/states/entity/player/PlayerPotWalkState'
 
 require 'src/states/game/GameOverState'
 require 'src/states/game/PlayState'
@@ -79,5 +81,6 @@ gSounds = {
     ['sword'] = love.audio.newSource('sounds/sword.wav', 'static'),
     ['hit-enemy'] = love.audio.newSource('sounds/hit_enemy.wav', 'static'),
     ['hit-player'] = love.audio.newSource('sounds/hit_player.wav', 'static'),
-    ['door'] = love.audio.newSource('sounds/door.wav', 'static')
+    ['door'] = love.audio.newSource('sounds/door.wav', 'static'),
+    ['recover'] = love.audio.newSource('sounds/recover.wav', 'static')
 }

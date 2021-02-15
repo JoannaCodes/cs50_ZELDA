@@ -37,9 +37,6 @@ GAME_OBJECT_DEFS = {
             ['idle'] = {
                 frame = 14
             },
-            ['lifted'] = {
-                frame = 14
-            },
             ['thrown'] = {
                 frame = 14
             },

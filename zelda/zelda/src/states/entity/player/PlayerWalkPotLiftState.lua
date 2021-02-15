@@ -1,1 +1,0 @@
-PlayerWalkPotLiftState = Class{__includes = BaseState}

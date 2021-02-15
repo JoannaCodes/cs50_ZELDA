@@ -12,20 +12,25 @@ end
 
 
 function PlayerPotLiftState:update(dt)
+    for k, object in pairs(self.dungeon.currentRoom.objects) do
+        if object.type == 'pot' and self.player:collides(object) then
+            object.x = self.player.x - (self.player.width / 2)
+            object.y = self.player.y - (self.player.height / 2)
+        else
+            self.player:changeState('idle')
+        end
+    end
+
 
     if self.player.currentAnimation.timesPlayed > 0 then
         self.player.currentAnimation.timesPlayed = 0
-        self.player:changeState('idle')
+        self.player:changeState('pot-idle')
     end
 
-    -- for walking while pot is carried
-    --[[for k, object in pairs(self.dungeon.currentRoom.objects) do
-        if self.player:collides(object) and object.solid then
-            self.player.potLift = true
-            self.player:changeState()
-        end
-    end]]
-
+    if love.keyboard.isDown('left') or love.keyboard.isDown('right') or
+       love.keyboard.isDown('up') or love.keyboard.isDown('down') then
+        self.entity:changeState('pot-walk')
+    end
 end
 
 function PlayerPotLiftState:render()

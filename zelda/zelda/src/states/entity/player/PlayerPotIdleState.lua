@@ -1,0 +1,1 @@
+PlayerPotIdleState = Class{__includes = EntityIdleState}

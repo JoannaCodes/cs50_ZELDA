@@ -113,8 +113,17 @@ function Room:generateObjects()
             math.random(MAP_RENDER_OFFSET_Y + TILE_SIZE, VIRTUAL_HEIGHT - (VIRTUAL_HEIGHT - MAP_HEIGHT * TILE_SIZE) -- y
             + MAP_RENDER_OFFSET_Y - TILE_SIZE - 15))
 
+            -- avoids overlapping of GameObjects
+            for k, object in pairs(self.objects) do
+                if object:collides(pot) and self.player:collides(pot) then
+                    goto continue
+                end
+            end
+
         -- add pots to the scene
         table.insert(self.objects, pot)
+
+        ::continue::
     end
 end
 
@@ -177,6 +186,7 @@ function Room:update(dt)
 
                 heart.onConsume = function ()
                     self.player:gain(2)
+                    gSounds['recover']:play()
                     -- prevents from from rendering the heart after consume
                     entity.dropHeart = false
                 end

@@ -115,7 +115,7 @@ function Room:generateObjects()
 
             -- avoids overlapping of GameObjects
             for k, object in pairs(self.objects) do
-                if object:collides(pot) and self.player:collides(pot) then
+                if object:collides(pot) then
                     goto continue
                 end
             end

@@ -105,9 +105,10 @@ function Room:generateObjects()
     -- add to list of objects in scene (only one switch for now)
     table.insert(self.objects, switch)
 
+-- Add Pot Feature -------------------
     local pots = math.random(2,5)
     for i = 1, pots do
-        --generate pots
+        -- Pots Spawning
         local pot = GameObject(GAME_OBJECT_DEFS['pot'],  -- def
             math.random(MAP_RENDER_OFFSET_X + TILE_SIZE, VIRTUAL_WIDTH - TILE_SIZE * 3 - 15), -- x
             math.random(MAP_RENDER_OFFSET_Y + TILE_SIZE, VIRTUAL_HEIGHT - (VIRTUAL_HEIGHT - MAP_HEIGHT * TILE_SIZE) -- y
@@ -181,10 +182,15 @@ function Room:update(dt)
         if entity.health <= 0 and not entity.dead then
             entity.dead = true
 
+-- Heart Feature---------------------
+            -- Heart Spawning
+
+            -- entity.dropHeart form Entity.lua
             if entity.dropHeart then
                 local heart = GameObject(GAME_OBJECT_DEFS['heart'], math.floor(entity.x), math.floor(entity.y))
 
                 heart.onConsume = function ()
+                    -- self.player:gain() form Entity.lua
                     self.player:gain(2)
                     gSounds['recover']:play()
                     -- prevents from from rendering the heart after consume
@@ -218,12 +224,14 @@ function Room:update(dt)
         if self.player:collides(object) then
             object:onCollide()
 
+-- Heart Feature ------------------------------
             -- heart consume
             if object.consumable then
                 object.onConsume(self.player)
                 table.remove(self.objects, k)
             end
 
+-- Add Pot Feature --------------------------------
             -- pot coliision
             if object.solid then
                 local direction = self.player.direction

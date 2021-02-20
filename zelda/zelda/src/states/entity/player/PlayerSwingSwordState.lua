@@ -69,7 +69,7 @@ function PlayerSwingSwordState:update(dt)
         end
     end
 
-    -- breaks the pots
+    -- Bonus Feature: breaks the pots
     for k, object in pairs(self.dungeon.currentRoom.objects) do
         if object.type == 'pot' and object:collides(self.swordHitbox) then
             object.state = 'broken'

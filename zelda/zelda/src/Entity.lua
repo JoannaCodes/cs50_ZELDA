@@ -39,11 +39,9 @@ function Entity:init(def)
 
     self.dead = false
 
+-- SPECIFICATION: Heart Random Spawning
     -- entity randomly drop heart
     self.dropHeart = math.random(0,1) == 1 and true or false
-
-    -- checks if pot is liftes
-    self.potLift = false
 end
 
 function Entity:createAnimations(animations)
@@ -72,6 +70,7 @@ function Entity:damage(dmg)
     self.health = self.health - dmg
 end
 
+-- SPECIFICATION: Heart Random Spawning
 function Entity:gain(HP)
     self.health = math.min(self.health + HP, 6)
 end

@@ -25,9 +25,12 @@ function PlayerPotWalkState:update(dt)
         self.entity:changeState('pot-idle')
     end
 
-    if love.keyboard.wasPressed('space') then
-        self.entity:changeState('idle')
+    if love.keyboard.wasPressed('enter') or love.keyboard.wasPressed('return') then
+        self.entity:changeState('pot-throw')
     end
+
+    self.entity.carriesPot.x = math.floor(self.entity.x)
+    self.entity.carriesPot.y = math.floor(self.entity.y - (self.entity.height / 2))
 
     EntityWalkState.update(self, dt)
 end

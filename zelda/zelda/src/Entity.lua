@@ -40,7 +40,6 @@ function Entity:init(def)
     self.dead = false
 
 -- SPECIFICATION: Heart Random Spawning
-    -- entity randomly drop heart
     self.dropHeart = math.random(0,1) == 1 and true or false
 end
 

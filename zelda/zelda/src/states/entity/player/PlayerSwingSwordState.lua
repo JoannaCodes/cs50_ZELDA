@@ -69,13 +69,6 @@ function PlayerSwingSwordState:update(dt)
         end
     end
 
-    -- BONUS FEATURE: breaks the pots
-    for k, object in pairs(self.dungeon.currentRoom.objects) do
-        if object.type == 'pot' and object:collides(self.swordHitbox) then
-            object.state = 'broken'
-        end
-    end
-
     -- if we've fully elapsed through one cycle of animation, change back to idle state
     if self.player.currentAnimation.timesPlayed > 0 then
         self.player.currentAnimation.timesPlayed = 0

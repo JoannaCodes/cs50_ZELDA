@@ -116,7 +116,7 @@ function Room:generateObjects()
 
             -- avoids overlapping of GameObjects
             for k, object in pairs(self.objects) do
-                if object:collides(pot) and self.player:collides(object) then
+                if object:collides(pot) then
                     goto continue
                 end
             end
@@ -175,6 +175,28 @@ function Room:update(dt)
 
     self.player:update(dt)
 
+    -- SPECIFICATION: Pot collisions to walls and pot limitation
+    for k, object in pairs(self.objects) do
+        if object.type == 'pot' and object.projecting then
+            local potBroken = false
+            -- wall collision
+            if object.x <= MAP_RENDER_OFFSET_X + TILE_SIZE then
+                potBroken = true
+            elseif object.x + object.width >= VIRTUAL_WIDTH - TILE_SIZE * 2 then
+                potBroken = true
+            elseif object.y <= MAP_RENDER_OFFSET_Y + TILE_SIZE - object.height / 2 then
+                potBroken = true
+            elseif object.y + object.height >= VIRTUAL_HEIGHT - (VIRTUAL_HEIGHT - MAP_HEIGHT * TILE_SIZE) + MAP_RENDER_OFFSET_Y - TILE_SIZE then
+                potBroken = true
+            end
+
+            -- remove pots after thrown
+            if potBroken then
+                table.remove(self.objects, k)
+            end
+        end
+    end
+
     for i = #self.entities, 1, -1 do
         local entity = self.entities[i]
 
@@ -204,6 +226,17 @@ function Room:update(dt)
         elseif not entity.dead then
             entity:processAI({room = self}, dt)
             entity:update(dt)
+        end
+
+-- SPECIFICATION: Pot collisions to entities
+        if not entity.dead then
+            for k, object in pairs(self.objects) do
+                if object.type == 'pot' and entity:collides(object) and object.projecting then
+                    entity:damage(1)
+                    gSounds['hit-player']:play()
+                    table.remove(self.objects, k)
+                end
+            end
         end
 
         -- collision between the player and entities in the room

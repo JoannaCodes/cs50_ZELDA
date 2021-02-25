@@ -32,9 +32,13 @@ function GameObject:init(def, x, y)
     -- default empty collision callback
     self.onCollide = function() end
 
+-- SPECIFICATION: Heart consuming
     -- consuming objects
     self.consumable = def.consumable or false
     self.onConsume = def.onConsume
+
+-- SPECIFICATION: pot projectile
+    self.projecting = false
 end
 
 function GameObject:update(dt)

@@ -6,11 +6,8 @@ function PlayerPotIdleState:init(player, dungeon)
     self.player = player
     self.dungeon = dungeon
 
-    local direction = self.player.direction
-
     self.player:changeAnimation('idle-pot-lift-' .. self.player.direction)
 end
-
 
 function PlayerPotIdleState:update(dt)
     if love.keyboard.isDown('left') or love.keyboard.isDown('right') or
@@ -18,8 +15,8 @@ function PlayerPotIdleState:update(dt)
         self.player:changeState('pot-walk')
     end
 
-    if love.keyboard.wasPressed('space') then
-        self.player:changeState('idle')
+    if love.keyboard.wasPressed('enter') or love.keyboard.wasPressed('return') then
+        self.player:changeState('pot-throw')
     end
 end
 

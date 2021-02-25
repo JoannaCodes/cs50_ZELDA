@@ -1,19 +1,33 @@
+-- SPECIFICATION: Pot as weapon
+
 PlayerPotWalkState = Class{__includes = EntityWalkState}
 
 function PlayerPotWalkState:init(player, dungeon)
-    self.player = player
+    self.entity = player
     self.dungeon = dungeon
 
-    self.player.offsetY = 5
-    self.player.offsetX = 7
 end
 
-function PlayerPotWalkState:update()
+function PlayerPotWalkState:update(dt)
+    if love.keyboard.isDown('left') then
+        self.entity.direction = 'left'
+        self.entity:changeAnimation('walk-pot-left')
+    elseif love.keyboard.isDown('right') then
+        self.entity.direction = 'right'
+        self.entity:changeAnimation('walk-pot-right')
+    elseif love.keyboard.isDown('up') then
+        self.entity.direction = 'up'
+        self.entity:changeAnimation('walk-pot-up')
+    elseif love.keyboard.isDown('down') then
+        self.entity.direction = 'down'
+        self.entity:changeAnimation('walk-pot-down')
+    else
+        self.entity:changeState('pot-idle')
+    end
 
-end
+    if love.keyboard.wasPressed('space') then
+        self.entity:changeState('idle')
+    end
 
-function PlayerPotWalkState:render()
-    local anim = self.player.currentAnimation
-    love.graphics.draw(gTextures[anim.texture], gFrames[anim.texture][anim:getCurrentFrame()],
-        math.floor(self.player.x - self.player.offsetX), math.floor(self.player.y - self.player.offsetY))
+    EntityWalkState.update(self, dt)
 end

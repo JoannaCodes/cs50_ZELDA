@@ -1,22 +1,14 @@
+-- SPECIFICATION: Pot as weapon
+
 PlayerPotIdleState = Class{__includes = BaseState}
 
 function PlayerPotIdleState:init(player, dungeon)
     self.player = player
     self.dungeon = dungeon
 
-    self.player.offsetX = 5
-    self.player.offsetY = 7
-
     local direction = self.player.direction
-        if direction == 'left' then
-            self.player:changeAnimation('idle-pot-lift-left')
-        elseif direction == 'right' then
-            self.player:changeAnimation('idle-pot-lift-right')
-        elseif direction == 'up' then
-            self.player:changeAnimation('idle-pot-lift-up')
-        elseif direction == 'down' then
-            self.player:changeAnimation('idle-pot-lift-down')
-        end
+
+    self.player:changeAnimation('idle-pot-lift-' .. self.player.direction)
 end
 
 
@@ -24,6 +16,10 @@ function PlayerPotIdleState:update(dt)
     if love.keyboard.isDown('left') or love.keyboard.isDown('right') or
         love.keyboard.isDown('up') or love.keyboard.isDown('down') then
         self.player:changeState('pot-walk')
+    end
+
+    if love.keyboard.wasPressed('space') then
+        self.player:changeState('idle')
     end
 end
 

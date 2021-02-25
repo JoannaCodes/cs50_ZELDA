@@ -116,7 +116,7 @@ function Room:generateObjects()
 
             -- avoids overlapping of GameObjects
             for k, object in pairs(self.objects) do
-                if object:collides(pot) then
+                if object:collides(pot) and self.player:collides(object) then
                     goto continue
                 end
             end
@@ -183,19 +183,19 @@ function Room:update(dt)
             entity.dead = true
 
 -- SPECIFICATION: Heart Random Spawning ---------------------
-            -- Heart Spawning
-
-            -- entity.dropHeart from Entity.lua
-            if entity.dropHeart then
+            if entity.dropHeart and self.player.health ~= 6 then
                 local heart = GameObject(GAME_OBJECT_DEFS['heart'], math.floor(entity.x), math.floor(entity.y))
 
                 heart.onConsume = function ()
-                    -- self.player:gain() from Entity.lua
-                    self.player:gain(2)
-                    gSounds['recover']:play()
+                    if self.player.health >= 6 then
+                        entity.dropHeart = false
+                    else
+                        self.player:gain(2)
+                        gSounds['recover']:play()
 
-                    -- prevents from from rendering the heart after consume
-                    entity.dropHeart = false
+                        -- prevents from from rendering the heart after consume
+                        entity.dropHeart = false
+                    end
                 end
                 
                 table.insert(self.objects, heart)

@@ -19,7 +19,11 @@ function PlayerPotThrowState:update(dt)
 
     if self.projectile.complete then
         self.player.carriesPot.projecting = false
+
+        self.player.carriesPot.state = 'thrown'
+
         self.player.carriesPot = nil
+
         self.player:changeState('idle')
     end
 end

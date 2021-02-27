@@ -25,6 +25,7 @@ function PlayerPotWalkState:update(dt)
         self.entity:changeState('pot-idle')
     end
 
+-- SPECIFICATION: Pot as weapon
     if love.keyboard.wasPressed('enter') or love.keyboard.wasPressed('return') then
         self.entity:changeState('pot-throw')
     end

@@ -29,6 +29,7 @@ function PlayerIdleState:update(dt)
         self.entity:changeState('swing-sword')
     end
 
+-- SPECIFICATION: Pot as weapon
     if love.keyboard.wasPressed('l') then
         self.entity:changeState('pot-lift')
     end

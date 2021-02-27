@@ -34,6 +34,8 @@ function PlayerPotLiftState:update(dt)
         end
 
         if PotDistanceToPlayer < 30 then
+            self.pot.state = 'lifted'
+
             self.player.carriesPot = self.pot
 
             self.player:changeState('pot-idle')

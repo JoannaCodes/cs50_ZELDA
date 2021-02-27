@@ -40,6 +40,9 @@ GAME_OBJECT_DEFS = {
             ['lifted'] = {
                 frame = 14
             },
+            ['thrown'] = {
+                frame = 14
+            },
             ['broken'] = {
                 frame = 52
             }

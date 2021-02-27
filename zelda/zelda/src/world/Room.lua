@@ -188,10 +188,16 @@ function Room:update(dt)
                 potBroken = true
             elseif object.y + object.height >= VIRTUAL_HEIGHT - (VIRTUAL_HEIGHT - MAP_HEIGHT * TILE_SIZE) + MAP_RENDER_OFFSET_Y - TILE_SIZE then
                 potBroken = true
+            elseif object.state == 'thrown' and object.projecting == 'false'  then
+                potBroken = true
             end
 
             -- remove pots after thrown
             if potBroken then
+                table.remove(self.objects, k)
+            end
+        elseif object.type == 'pot' and object.projecting == false then
+            if object.state == 'thrown' then
                 table.remove(self.objects, k)
             end
         end
@@ -333,6 +339,14 @@ function Room:render()
     
     if self.player then
         self.player:render()
+    end
+
+    for k, object in pairs(self.objects) do
+        if object.type == 'pot' then
+            if object.state == 'lifted' then
+                object:render(self.adjacentOffsetX, self.adjacentOffsetY)
+            end
+        end
     end
 
     love.graphics.setStencilTest()

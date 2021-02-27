@@ -6,6 +6,8 @@
     cogden@cs50.harvard.edu
 ]]
 
+-- SPECIFICATION: Pot as weapon
+
 Projectile = Class{}
 
 function Projectile:init(projectile, distance, direction)
